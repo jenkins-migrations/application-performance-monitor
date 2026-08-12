@@ -119,8 +119,10 @@ jobs:
           path: target
 
       # Jenkins: sh 'mvn failsafe:integration-test'
+      # 'failsafe:verify' is added so that failing integration tests fail the job;
+      # 'failsafe:integration-test' alone always exits 0 by design.
       - name: Run integration tests
-        run: mvn --batch-mode failsafe:integration-test
+        run: mvn --batch-mode failsafe:integration-test failsafe:verify
 
       # Jenkins: publishTestResults testResultsPattern: 'target/failsafe-reports/*.xml'
       - name: Upload integration test results

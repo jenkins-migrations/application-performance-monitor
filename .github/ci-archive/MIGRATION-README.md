@@ -35,6 +35,7 @@ The original pipeline used two `node` blocks sharing a Jenkins External Workspac
 | `checkout scm` | `actions/checkout` |
 | `sh 'mvn ...'` | `run: mvn --batch-mode ...` |
 | `archiveArtifacts artifacts: 'target/*.jar', fingerprint: true` | `actions/upload-artifact` (`jars`) |
+| `sh 'mvn failsafe:integration-test'` | `run: mvn --batch-mode failsafe:integration-test failsafe:verify` (`verify` is required so failing integration tests fail the job) |
 | `publishTestResults testResultsPattern: 'target/surefire-reports/*.xml'` | `actions/upload-artifact` (`unit-test-results`, `if: always()`) |
 | `publishTestResults testResultsPattern: 'target/failsafe-reports/*.xml'` | `actions/upload-artifact` (`integration-test-results`, `if: always()`) |
 | `exwsAllocate 'diskpool1'` / `exws(...)` (shared workspace across nodes) | `build-output` artifact uploaded by `build` and downloaded by the test jobs |
